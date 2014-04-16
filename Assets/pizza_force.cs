@@ -5,12 +5,14 @@ public class pizza_force : MonoBehaviour {
 
     //Rigidbody bullet = new Rigidbody();
     public float speed = 500f;
+	public int pizza_life = 10;
     public GameObject bullet = null;
 	public GameObject shot;
 	public GameObject vater = null;
 
 	// Use this for initialization
 	void Start () {
+
 
 		moveOnSpawn();
 	
@@ -38,17 +40,22 @@ public class pizza_force : MonoBehaviour {
 
 		shot.transform.parent = null;
 		shot.rigidbody.useGravity = true;
+		shot.rigidbody.isKinematic = false;
+		//shot.rigidbody.collider.
 		shot.rigidbody.AddForce(transform.forward*500);
+		Destroy(shot.gameObject, pizza_life);
+		moveOnSpawn();
     }
 
 	void moveOnSpawn()
 	{
 		shot = Instantiate(bullet, transform.position, transform.rotation) as GameObject;
-		shot.rigidbody.Sleep();
+		shot.rigidbody.isKinematic = true;
 		shot.transform.parent = vater.transform;
 		shot.transform.Rotate(-90,0,0);
 		shot.transform.Translate (0,3,0);
-		//shot.transform.Translate (Vector3.forward * Time.deltaTime);
+		shot.transform.position = Vector3.Lerp(transform.position, new Vector3(0,-3,0), Time.deltaTime*0.1f);
+
 	}
 
     //void OnMouseDown()

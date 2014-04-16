@@ -13,6 +13,7 @@ public class Temp : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.position = Vector3.MoveTowards(transform.position, target.position, Time.deltaTime * speed);
+		//transform.position = Vector3.MoveTowards(transform.position, target.position, Time.deltaTime * speed);
+		transform.Translate(Vector3.forward * Time.deltaTime);
 	}
 }
